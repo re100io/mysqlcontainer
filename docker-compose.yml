@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  my-mysql:
+    image: mysql:latest
+    container_name: my-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mydb # 如果你需要默认创建一个数据库
+    volumes:
+      - mysql-data:/var/lib/mysql # 用于数据持久化
+
+  my-phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: my-phpmyadmin
+    depends_on:
+      - my-mysql
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: my-mysql
+
+volumes:
+  mysql-data: # 定义卷以持久化MySQL数据
