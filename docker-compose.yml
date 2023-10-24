@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: mydb # 如果你需要默认创建一个数据库
+    ports:
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql # 用于数据持久化
 
@@ -16,7 +18,7 @@ services:
     depends_on:
       - my-mysql
     ports:
-      - "8080:80"
+      - "8081:80"
     environment:
       PMA_HOST: my-mysql
 
